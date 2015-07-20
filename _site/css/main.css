@@ -1,0 +1,35 @@
+body {
+  font-family: 'Roboto', 'Exo 2', sans-serif;
+}
+
+.text-gray {
+  color: #48443D;
+}
+.text-gray-light {
+  color: #6D6E71;
+}
+.text-white {
+  color: #FFF !important;
+}
+
+
+.title-mkt {
+  font-family: 'Exo 2', sans-serif;
+  text-transform: uppercase;
+  color: #6C6D71;
+  font-size: 28px;
+  font-weight: 300;
+  padding-bottom: 80px;
+}
+
+.title-section {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -2px
+}
+
+.social-icon {
+  padding-left: 25px;
+  padding-right: 25px;
+}
