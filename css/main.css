@@ -1,46 +1,73 @@
 body {
-  font-family: 'Roboto', 'Exo 2', sans-serif;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  background: url(../img/hackerroom.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-.text-gray {
-  color: #48443D;
-}
-.text-gray-light {
-  color: #6D6E71;
-}
-.text-white {
-  color: #FFF !important;
-}
-
-
-.title-mkt {
-  font-family: 'Exo 2', sans-serif;
-  text-transform: uppercase;
-  color: #6C6D71;
-  font-size: 28px;
-  font-weight: 300;
-  padding-bottom: 80px;
+body::after {
+  content: ' ';
+  background-color: #1E1E1E;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  opacity: 0.9;
+  z-index: -1;
 }
 
-.title-section {
-  font-family: 'Exo 2', sans-serif;
-  font-size: 48px;
-  font-weight: 600;
-  letter-spacing: -2px
+a, a:hover {
+  color: rgba(255, 255, 255, 0.72);
 }
 
-.social-icon {
-  padding-left: 25px;
-  padding-right: 25px;
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  min-height: 100vh;
 }
 
-#gpg {
-  display: block;
+.photo {
+  /* border-radius: 50%; */
+  border-color: white;
+  border-style: solid;
+  border-width: 3px;
+  width: 10rem;
+  margin-right: 1.5rem;
+}
+
+.container h1 {
+  margin-bottom: 0;
+  opacity: .7;
+}
+
+.container ul {
+  padding: 1rem 0 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.container ul li {
+  list-style: none;
+  display: inline;
+}
+
+.container ul li::after {
+  content: " \00b7";
+}
+
+.container ul li:last-child:after {
+  content: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding: 12px;
-  margin: 0 0 0px;
-  font-size: 12px;
-  line-height: 1.42857143;
-  color: #f5f5f5;
-  background-color: #337ab7;
 }
