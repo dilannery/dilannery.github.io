@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualCastalia - An extension to support image transmission on Castalia/OMNet++</title>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>VisualCastalia</h1>
+        <p>An extension to support image transmission on Castalia/OMNet++</p>
+        <nav>
+            <a href="#description">Description</a> /
+            <a href="#characteristics">Characteristics</a> /
+            <a href="#design">Design and Specification</a> /
+            <a href="#simulations">Simulations</a> /
+            <a href="#results">Results</a> / 
+            <a href="#installation">Installation</a> /
+            <a href="#download">Download</a> /
+            <a href="#references">References</a> 
+        </nav>
+    </header>
+
+    <section id="description">
+        <h2>Description</h2>
+        <p>The VisualCastalia is an extension of the Castalia, a Wireless Sensor Networks (WSN) simulation framework
+            based on the OMNet++ simulator. Castalia provides resources for simulations of WSN applications.</p>
+
+        <p>Although many types of simulations can be performed using Castalia, all simulations are based on
+            transmissions of scalar data. For transmission of visual data (still images and video streams), Castalia
+            does not provide resources to allow realistic simulations of Wireless Visual Sensor Networks (WVSN).</p>
+
+        <p>In this context, the VisualCastalia comes as an extension of the original Castalia framework, bringing new
+            resources for simulations of image transmissions in wireless sensor networks. The idea is to provide a more
+            realistic solution for simulations of such networks.</p>
+
+        <p>This extension was developed in the Laboratory of Multimedia Communications (NetMedia) of the State
+            University of Feira de Santana (UEFS), Brazil. It was originally developed by Prof. Dr. Daniel G. Costa and
+            Lucas Vinicius Assis, with support of CNPq brazilian research agency.</p>
+
+        <p>The VisualCastalia code is still in its alpha version. It can be found HERE.</p>
+        <p>Installation instructions are presented at the end of this page.</p>
+    </section>
+
+    <section id="characteristics">
+        <h2>Characteristics</h2>
+
+        <p>The VisualCastalia framework is focused on image sensing and transmissions of image packets in WSN. There are
+            many relevant issues concerning Wireless Visual Sensor Networks ([1]) that may be simulated to provide
+            numerical results for different kinds of performance analysis, as visual sensing coverage, deployment,
+            transmission, media coding, compressing, security, among others. In this complex scenario, the
+            VisualCastalia extension is focused on image packets transmissions, addressing packet generation and
+            transmission.</p>
+
+        <p>The main characteristics of this extension are:</p>
+        <ul>
+            <li>The Castalia's Node is extended to support image transmissions. Using VisualCastalia, a Node can
+                transmit image packets considering a transmission frequency (snapshots per second).</li>
+
+            <li>Image sensing and transmission are centered in a new application, ImageTransmission, which provides many
+                parameters for configurations of particular aspects of image sensing and transmissions.</li>
+
+            <li>Users must define the characteristics of visual data and the simulator transforms visual data into data
+                packets, which are then transmitted using the resources already provided by Castalia.</li>
+
+            <li>The VisualCastalia transparently handles image sensing and transmission, properly fragmenting images
+                into data packets. For that, the payload size of data packets is considered.</li>
+
+            <li>Image generation is done using OpenCV, which is automatically added and configured when installing
+                VisualCastalia.</li>
+
+            <li>Images in VisualCastalia may be real or virtual. Real images are created from image files defined during
+                simulation, allowing visual verification of data corruption during transmissions. On the other hand,
+                virtual images are emulated and their contents are meaningless. Users can choose what kind of image
+                generation will be considered.</li>
+
+            <li>VisualCastalia introduces new results:
+                <ol>
+                    <li>PSNR measure of transmitted and received images</li>
+                    <li>End-to-end latency of image sensing/reconstruction and</li>
+                    <li>Specific traces for images handling and processing</li>
+                </ol>
+            </li>
+        </ul>
+
+        <p>VisualCastalia is focused on packet transmissions and thus some issues of wireless visual sensor networks are
+            not addressed by this simulation extension. Field of View of camera-enabled sensor nodes are not modeled in
+            Visual Castalia. Coverage metrics are not employed and deployment of visual nodes is not addressed as well.
+        </p>
+    </section>
+
+    <section id="design">
+        <h2>Design and specification</h2>
+
+        <p>VisualCastalia is based on Castalia framework, version 3.2. In such way, the structure of Castalia was
+            carefully considered when defining the VisualCastalia. Actually, many files were inserted but we avoided to
+            remove or alter files of original Castalia. Thus, VisualCastalia can be installed transparently for users
+            who already have Castalia installed and working. Doing so, we made of VisualCastalia a new extension, and
+            not a new simulator.</p>
+
+        <p>All modifications are made in Module Node, as follows [under construction]:</p>
+
+        <img src="http://lara.uefs.br/visualcastalia/VisualCastaliaModules.png" alt="A diagram">
+
+        <p>New files are inserted into the Node module of Castalia, adding new functionalities. The new files of
+            VisualCastalia are presented in this class diagram, where configuration parameters and the interaction
+            between classes are outlined:</p>
+
+        <img src="http://lara.uefs.br/visualcastalia/classesVCastalia.png" alt="Class Diagram">
+
+        <p>An <kbd>ImageTransmission</kbd> defines an application associated to the defined node. The <kbd>ImageTransmission</kbd> inherents
+            from <kbd>VirtualApplication</kbd> class of Castalia, which is required by Castalia. In short, if a <kbd>Node</kbd> uses the
+            <kbd>ImageTransmission</kbd> application, it can transmit and receive image packets, turning it into a visual node. Any
+            number of nodes of a simulation may use this application, and we may also have different nodes with
+            different applications (visual and scalar nodes in the same simulation).</p>
+
+        <p>The new files of ImageTransmission are ImageTransmission.cc e ImageTransmission.h. These files specify the
+            basic procedures a visual node implements to transmit image packets. Packet capturing (from OpenCV),
+            packetizing, transmission schedule and packet reception are managed by the ImageTransmission. There are many
+            parameters in the ImageTransmission, where some of them may be directly configured by users.</p>
+
+        <p>An ImagePacket is used to transmit data of (emulated) sensed images. It inherents from ApplicationPacket of
+            Castalia and uses a instance of headerImagePacket to add flexibility and modularity to the solution. Control
+            information may be inserted into the headerImagePacket to allow QoS-based processing of data packets, e.g.
+            marking packets with priority tags.</p>
+        <p>The new file inserted into Castalia is ImagePacket.msg.</p>
+
+        <p>The SinkNodeManager defines the behavior of sink nodes, concerning image processing. It is used to manage the
+            reconstruction of received images, saving them in proper directories (specified by users).</p>
+        <p>The new file inserted into Castalia are SinkNodeManager.cc and SinkNodeManager.h.</p>
+
+        <p>The ImageManager was designed to support image handling, directly interacting with OpenCV. The ImageHandler
+            provides images for the ImageApplication, and performs reconstruction of received images.</p>
+        <p>The new file inserted into Castalia are ImageManager.cc and ImageManager.h.</p>
+    </section>
+
+    <section id="simulations">
+        <h2>Simulations</h2>
+
+        <p>Simulations are performed creating an omenetpp.ini file specifying nodes and configurations. Actually, the
+            same
+            parameters used for standard Castalia simulation an ben used for VisualCastalia, and some of them are indeed
+            mandatory.</p>
+
+        <p>In VisualCastalia, the time for simulation, nodes and protocols definitions are done in the same way of
+            standard Castalia simulations. When employing VisualCastalia, the only difference is that some or all sensor
+            nodes will use the ImageTransmission application. And, in this case, some basic configurations of that
+            application are required.</p>
+
+        <p>All configuration parameters for users are provided by ImageTransmition application. A description for each
+            of
+            those parameters is presented in the following table:</p>
+
+        <table>
+            <tr>
+                <td width=200><b>Parameter</b></td>
+                <td><b>Description</b></td>
+            </tr>
+            <tr>
+                <td>packetHeaderOverhead</td>
+                <td>Size of packet header, in bytes</td>
+            </tr>
+            <tr>
+                <td>constantDataPayload</td>
+                <td>Size of packet payload, in bytes</td>
+            </tr>
+            <tr>
+                <td>imageFormat</td>
+                <td>Format of considered images (same format for all images). It may be JPEG, JPEG2000 or BMP</td>
+            </tr>
+            <tr>
+                <td>originalImagesFolder</td>
+                <td>Folder of source images to be transmitted in a simulation. The simulation time is controlled by
+                    Castalia (<i>sim-time</i>) and thus images are transmitted in a loop sequence until the simulation
+                    ends (the same image may be transmitted several times).</td>
+            </tr>
+            <tr>
+                <td>receivedImagesFolder</td>
+                <td>Folder where received images are saved. Those images can be viewed by users or processed for latency
+                    and PSNR results</td>
+            </tr>
+            <tr>
+                <td>numImageSources</td>
+                <td>Indicates the number of...</td>
+            </tr>
+            <tr>
+                <td>imageFrequency</td>
+                <td>It indicates the number of images (snapshots) transmitted by source nodes every second. It may be
+                    lower than 1</td>
+            </tr>
+            <tr>
+                <td>selfGeneratedImage</td>
+                <td>If <i>true</i>, the transmitted images are automatically created by OpenCV. In other words, we may
+                    want to use VisualCastalia just to assess image transmissions, without concern to the images
+                    contents</td>
+            </tr>
+            <tr>
+                <td>imgHeight</td>
+                <td>If <i>selfGeneratedImage=true</i>, it specifies the height of automatically generated images</td>
+            </tr>
+            <tr>
+                <td>imgWidth</td>
+                <td>If <i>selfGeneratedImage=true</i>, it specifies the width of automatically generated images</td>
+            </tr>
+            <tr>
+                <td>useColoredImage</td>
+                <td>If <i>selfGeneratedImage=true</i>, it specifies if automatically generated images will be colored
+                    (<i>true</i>)</td>
+            </tr>
+        </table>
+
+        <p>An example of part of a omnetpp.ini file is presentes as folows, highlighting configuration of
+            ImageTransmission application:</p>
+
+        <img src="http://lara.uefs.br/visualcastalia/simul1.png">
+
+        <p>When VisualCastalia is used, the sink node must use the ImageTransmission application, sinde image reception
+            and
+            reconstruction is only performed at the sink.</p>
+
+        <p>Here are some omnetpp.ini files previously configured that can be used to test the operation of
+            VisualCastalia:</p>
+
+        <p><b>Scenario 1</b>. Two nodes (one source and one sink), with source transmitting 1 image per second: <a
+                href="visualcastalia/test1.zip">here</a></p>
+
+        <p><b>Scenario 2</b>. Four nodes (one source and one sink), with static routing and source transmitting at
+            different frequencies: <a href="visualcastalia/test2.zip">here</a></p>
+
+        <p><b>Scenario 3</b>. Five nodes, with two sources transmitting through a single multihop path toward the sink
+            and assuming different frequencies: <a href="visualcastalia/test3.zip">here</a></p>
+    </section>
+
+    <section id="results">
+        <h2>Results</h2>
+
+        <p>VisualCastalia provides some additional results to the ones provided by Castalia. Actually, standard
+            CastaliaResults program, presented in Castalia /bin directory, may be used to produce graphics with
+            information
+            of energy consumption and successful packet reception.</p>
+
+        <p></p>Examples os results of energy consumption for Scenarios 1, 2 and 3 are presented as follows:</p>
+
+        <pre>[Results will be delivered soon]</pre>
+
+        <p>Besides results produced by CastaliaResults, we also defined new results for image transmission. A new
+            script,
+            VisualCastaliaResults, generates results as PSNR and latency.</p>
+
+        <pre>[Results will be delivered soon]</pre>
+    </section>
+
+    <section id="installation">
+        <h2>Installation</h2>
+
+        <p>The installation process of Visual Castalia is explained below:</p>
+
+        <details>
+            <summary>Notes</summary>
+            <p>* The installation process was tested in operational system Ubuntu 14.04 LTS, thus install VisualCastalia
+                in another Linux distributions can be a little different.</p>
+            <p>* Complete information of OMNet++ instalation process can be found <a
+                    href="http://pharos.ece.utexas.edu/wiki/index.php/How_to_Install_OMNeT%2B%2B_4.2.2_on_Ubuntu_12.04"
+                    target="_blank">here</a></p>
+        </details>
+
+        <h3>The first step is to install OMNet++ simulator:</h3>
+        <ol>
+            <li>
+                <p>Download the OMNet++ simulator: <a href="https://omnetpp.org/omnetpp" target="_blank">here</a>
+                    (Choose the option: OMNeT++ 4.6 (source + IDE, tgz))</p>
+            </li>
+            <li>
+                <p>Install the dependences od OMNet++: execute the following command to install the prerequisite
+                    packages:</p>
+                <pre>$ sudo apt-get install build-essential gcc g++ bison flex perl tcl-dev tk-dev blt libxml2-dev zlib1g-dev openjdk-6-jre doxygen graphviz openmpi-bin libopenmpi-dev libpcap-dev</pre>
+            </li>
+            <li>
+                <p>Compile the OMNet++</p>
+                <pre>$ cd name_of_omnetpp_directory_location
+$ . setenv # First setup the environment variables
+$ ./configure
+$ make</pre>
+            </li>
+        </ol>
+
+        <details>
+            <summary>[Optional] Add the omnetpp to the system path of Linux:</summary>
+            <ol>
+                <li>
+                    <p>In home directory</p>
+                    <pre>$ cd</pre>
+                </li>
+                <li>
+                    <p>Open .bashrc file in your preferred text editor</p>
+                    <pre>$ vi .bashrc</pre>
+                </li>
+                <li>
+                    <p>In the file's last line add the following text, then save the file</p>
+                    <pre>$ export PATH=$PATH:$HOME/name_of_omnetpp_directory_location/bin</pre>
+                </li>
+                <li>
+                    <p>Close and Reopen the terminal</p>
+                </li>
+            </ol>
+        </details>
+
+        <h3>Second step: install OpenCV library</h3>
+        <p>Complete information of installation process of OpenCV can be found <a
+                href="http://docs.opencv.org/3.1.0/d7/d9f/tutorial_linux_install.html#gsc.tab=0"
+                target="_blank">here</a>
+            <ol>
+                <li>
+                    <p>Install the dependences od OpenCV: execute the following command to install the prerequisite packages:</p>
+                    <pre>$ sudo apt-get install build-essential
+$ sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+$ sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev <br>
+                </pre>
+                </li>
+                <li>
+                    <p>Download the OpenCV source code in version 3.1 (required by VisualCastalia) - OpenCV for
+                        Linux/Mac: <a href="http://opencv.org/downloads.html" target="_blank">here</a></p>
+                </li>
+                <li>
+                    <p>Build make file and compile OpenCV</p>
+                    <pre>$ cd name_of_opencv_directory_location
+$ mkdir build
+$ cd build
+
+$ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+$ make -j7 # runs 7 jobs in parallel
+$ sudo make install</pre>
+                </li>
+            </ol>
+
+            <h3>Third step: download and installation of VisualCastalia:</h3>
+            <ol>
+                <li>
+                    <p>Download the VisualCastalia Ready to Use at the following URL:</p>
+                </li>
+                <li>
+                    <p>Compile VisualCastalia (equal to compile process of Castalia)</p>
+                    <pre>$ cd name_of_visual_castalia_directory_location
+$ make clean
+$ ./makemake
+$ make</pre>
+                </li>
+            </ol>
+
+            <details>
+                <summary>[Optional] In case of the Castalia simulator is already installed, the VisualCastalia's files
+                    can be
+                    later added as follows (without loss of Castalia's functionalities):</summary>
+                <ol>
+                    <li>
+                        <p>Overwrite the original makemake of Castalia to VisualCastalia makemake file (this action
+                            allows
+                            VisualCastalia compile OpenCV library together to Castalia files)</p>
+                    </li>
+                    <li>
+                        <p>Add the following files to the bin/ folder of Castalia:</p>
+                        <ul>
+                            <li>Makefile</li>
+                            <li>psnr.cc</li>
+                            <li>VisualCastaliaResults.cc (not stable yet)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Add the examples of simulation to the Simulation/ folder of Castalia</p>
+                    </li>
+                    <li>
+                        <p>Add the new imageTransmission application to the castalia_folder/src/node/application/
+                            folder. The new
+                            application is composed by the following files (all the files are important to the correct
+                            operation of this
+                            extension)s:</p>
+                        <ul>
+                            <li>ImageManager.cc and ImageManager.h</li>
+                            <li>ImagePacket.msg</li>
+                            <li>ImageTransmission.cc, ImageTransmission.h and ImageTransmission.ned</li>
+                            <li>ImageTransmissionTraces.cc and ImageTransmissionTraces.h </li>
+                            <li>SinkNodeManager.cc and SinkNodeManager.h</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Compile VisualCastalia like explained before</p>
+                    </li>
+                </ol>
+            </details>
+
+            <details>
+                <summary>[Optional] Add the VisualCastalia to the system path of Linux:</summary>
+                <ol>
+                    <li>
+                        <p>In home directory</p>
+                        <pre>$ cd</pre>
+                    </li>
+                    <li>
+                        <p>Open .bashrc file in your preferred text editor</p>
+                        <pre>$ vi .bashrc</pre>
+                    </li>
+                    <li>
+                        <p>In the file's last line add the following text, then save the file</p>
+                        <pre>$ export PATH=$PATH:$HOME/name_of_VisualCastalia_directory_location/bin</pre>
+                    </li>
+                    <li>
+                        <p>Close and Reopen the terminal</p>
+                    </li>
+                </ol>
+            </details>
+    </section>
+
+    <section id="download">
+        <h2>Download</h2>
+        <pre>Note: the new VisualCastalia <u>result</u> scrirets are still under development (not all functions are implemented).</pre>
+        <p>The VisualCastalia extension can be downloaded <a href="visualcastalia/visualcastalia.zip">HERE</a></p>
+
+        <p>The VisualCastalia extension (bundled with Castalia) can be downloaded <a
+                href="visualcastalia/visualcastaliaready.zip">HERE</a></p>
+    </section>
+
+    <section id="references">
+        <h2>References</h2>
+
+        <ul>
+            <li>[1] Costa, Daniel G., Guedes, Luiz Affonso. The Coverage Problem in Video-Based Wireless Sensor
+                Networks: A Survey. Sensors, 10, 8215-8247, 2010.</li>
+            <li>[2] Costa, Daniel G., Guedes, Luiz Affonso. A Survey on Multimedia-Based Cross-Layer Optimization in
+                Visual Sensor Networks. Sensors, 11, 5439-5468, 2011.</li>
+            <li>[3] Tselishchev, Y., Boulis, A., and Libman, L. Experiences and lessons from implementing a wireless sensor
+                network mac protocol in the castalia simulator. In IEEE Wireless Communications & Networking Conferencee. 2010.</li>
+            <li>[4] Rosario, D., Zhao, Z., Silva, C., Cerqueira, E., Braun, T. An omnet++ framework to evaluate video
+                transmission in mobile wireless multimedia sensor networks. In International ICST Conference on
+                Simulation Tools and Techniques. 2013</li>
+        </ul>
+    </section>
+</body>
+
+</html>
