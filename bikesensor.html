@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeSensor</title>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>BikeSensor</h1>
+        <p>Monitoramento Ambiental Utilizando Bicicletas</p>
+
+        <nav>
+            <a href="#description">Descrição</a> /
+            <a href="#members">Membros</a> /
+            <a href="#financing">Financiamento</a> /
+            <a href="#results">Resultados Parciais</a> /
+            <a href="#papers">Publicações científicas</a>
+        </nav>
+    </header>
+
+    <section id="description">
+        <h2>Descrição</h2>
+
+        <p>O uso de bicicletas como meio de transporte alternativo tem sido estimulado nas grandes cidades não apenas
+            como alternativa aos graves problemas com mobilidade urbana e poluição, mas também como forma de estimular
+            hábitos de vida mais saudáveis. Contudo, não há, na maioria das vezes, um planejamento adequado para a
+            implantação de ciclovias e ciclofaixas quando consideramos as condições ambientais externas que afetam a
+            saúde e segurança dos ciclistas.</p>
+
+        <p>Este projeto destina-se a criar suporte tecnológico para o monitoramento de diversas condições ambientais,
+            adversas ou não, em ciclovias presentes em áreas urbanas, considerando tanto ciclovias demarcadas quanto
+            ruas usadas por ciclistas. As variáveis a serem monitoradas são: temperatura, humidade, pressão atmosférica,
+            luminosidade, radiação UV, poluição do ar e poluição sonora.</p>
+
+        <p>Através do monitoramento contínuo e distribuído, será possível processar e disponibilizar diariamente
+            informações a cerca da qualidade das vias percorridas por ciclistas, potencialmente auxiliando os órgãos
+            públicos na manutenção e implantação de novas ciclovias e ciclofaixas.</p>
+    </section>
+
+    <section id="members">
+        <h2>Membros</h2>
+
+        <!-- TODO: Create an container like a card to hold people information -->
+        <section>
+            <h3>Coordenador</h3>
+            <blockquote>
+                <h4>Prof. Dr. Daniel G. Costa, DTEC-UEFS</h4>
+                <p>http://orcid.org/0000-0003-3988-8476</p>
+                <p>danielgcosta@uefs.br</p>
+            </blockquote>
+            
+        </section>
+
+        <section>
+            <h3>Pesquisadores</h3>
+
+            <blockquote>
+                <h4>Prof. Dr. Anfranserai Dias, DTEC-UEFS</h4>
+                <p>https://orcid.org/0000-0001-7381-1005</p>
+            </blockquote>
+
+            <blockquote>
+                <h4>Franklin Oliveira, PGCC-UEFS (mestrando)</h4>
+                <p>https://orcid.org/0000-0003-4285-0006</p>
+            </blockquote>
+
+            <blockquote>
+                <h4>Dilan Nery, PGCC-UEFS (mestrando)</h4>
+                <p>https://orcid.org/0000-0001-7381-1005</p>
+            </blockquote>
+
+            <blockquote>
+                <h4>Glauber Santana, UEFS (graduando)</h4>
+                <p>https://orcid.org/0000-0001-5605-4006</p>
+            </blockquote>
+        </section>
+    </section>
+
+    <section id="financing">
+        <h2>Financiamento</h2>
+
+        <ul>
+            <li>Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq). Edital Universal 2018 - Faixa A
+            </li>
+        </ul>
+    </section>
+
+    <section id="results">
+        <h2>Resultados Parciais</h2>
+
+        <section id="monitoring_system">
+            <h3>Sistema de monitoramento</h3>
+
+            <p>Criação de um sistema de monitoramento IoT em três camadas, contemplando 1) unidades de monitoramento
+                acopladas à bicicletas (MMS), 2) uma estacão intermediária de processamento (DCU) e um conjunto de
+                aplicações para visualização dos dados coletados (BSC). Esse sistema é construído seguindo o princípio
+                monitor-store-and-transmit, com as bicicletas monitorando o ambiente e armazenando localmente os dados
+                para transmissão apenas a partir de uma estação base cadastrada para cada bicicleta. A comunicação com a
+                estação utiliza a tecnologia Wi-Fi, reduzindo bastante o custo de operação do sistema.</p>
+
+            <img src="./img/bike/mms.png" alt="Arquitetura geral do sistema de monitoramento">
+
+            <p>Como a qualidade do sistema de monitoramento depende da quantidade de bicicletas utilizadas, o hardware
+                utilizado deve ser de baixo custo e consumir pouca energia. Os primeiros protótipos são baseados no
+                Raspberry Pi Zero WH e em sensores baratos, conectados à uma bateria.</p>
+
+            <img src="./img/bike/mms_prototype.png" alt="Prótotipo de monitoramento - Versão 1.0">
+        </section>
+
+        <section id="bikepath_quality_assesment">
+            <h3>Métrica de qualidade de ciclovias</h3>
+
+            <p>Uma métrica de qualidade foi criada para monitorar a qualidade de ciclovias de acordo com informações
+                ambientais. Essa métrica, chamada de BikeWay, associa informações de dois diferentes grupos de
+                informação: dados de sensores e dados estatísticos das vias. O valor encontrado para cada ciclovia é
+                então classificado em um de cinco níveis.</p>
+
+            <img src="./img/bike/bikeway.png" alt="">
+
+            <p>A partir da utilização de regras de processamento Fuzzy, qualquer ciclovia do mundo pode ser classificada
+                com um valor de qualidade BikeWay, com “azul" sendo o melhor valor e “vermelho" sendo o pior valor.</p>
+        </section>
+    </section>
+
+    <section id="papers">
+        <h2>Publicações científicas</h2>
+
+        <ol>
+            <li>
+                <a href="https://doi.org/10.1109/ACCESS.2020.3046017" target="_blank">BikeWay: A Multi-Sensory Fuzzy-Based Quality Metric for Bike Paths and Tracks in Urban Areas. Oliveira, F., Costa, Daniel G., Duran-Faundez, C., Dias, A. IEEE Access, v. 8, 227313-227326, 2020.</a>
+            </li>
+            <li>
+                <a href="https://doi.org/10.1109/ISC251055.2020.9239071" target="_blank">A Multi-Tier Sensors-based Environmental Monitoring Approach to Assess the Quality of Bike Paths in Urban Areas. Oliveira, F., Costa, Daniel G., Dias, A. IEEE Smart Cities Conference (IEEE ISC2), Virtual Conference, 2020.</a>
+            </li>
+        </ol>
+    </section>
+</body>
+
+</html>
