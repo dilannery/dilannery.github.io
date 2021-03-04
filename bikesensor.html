@@ -8,6 +8,9 @@
     <title>BikeSensor</title>
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="./img/bike/main.css">
 </head>
 
 <body>
@@ -49,36 +52,102 @@
         <!-- TODO: Create an container like a card to hold people information -->
         <section>
             <h3>Coordenador</h3>
-            <blockquote>
+            <section class="card">
                 <h4>Prof. Dr. Daniel G. Costa, DTEC-UEFS</h4>
-                <p>http://orcid.org/0000-0003-3988-8476</p>
-                <p>danielgcosta@uefs.br</p>
-            </blockquote>
-            
+                <main>
+                    <p>
+                        <a href="mailto:danielgcosta@uefs.br">
+                            <i class="lar la-envelope"></i>
+                            danielgcosta@uefs.br
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://orcid.org/0000-0003-3988-8476" target="_blank">
+                            <img alt="ORCID logo" src="./img/bike/icon/ORCIDiD_icon16x16.png" width="16" height="16" />
+                            0000-0003-3988-8476
+                        </a>
+                    </p>
+                </main>
+            </section>
         </section>
 
         <section>
             <h3>Pesquisadores</h3>
 
-            <blockquote>
+            <section class="card">
                 <h4>Prof. Dr. Anfranserai Dias, DTEC-UEFS</h4>
-                <p>https://orcid.org/0000-0001-7381-1005</p>
-            </blockquote>
+                <main>
+                    <p>
+                        <a href="mailto:anfranserai@ecomp.uefs.br">
+                            <i class="lar la-envelope"></i>
+                            anfranserai@ecomp.uefs.br
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://orcid.org/0000-0001-7381-1005" target="_blank">
+                            <img alt="ORCID logo" src="./img/bike/icon/ORCIDiD_icon16x16.png" width="16" height="16" />
+                            0000-0001-7381-1005
+                        </a>
+                    </p>
+                </main>
+            </section>
 
-            <blockquote>
-                <h4>Franklin Oliveira, PGCC-UEFS (mestrando)</h4>
-                <p>https://orcid.org/0000-0003-4285-0006</p>
-            </blockquote>
+            <section class="card">
+                <h4>Franklin Oliveira, PGCC-UEFS</h4>
+                <p>Mestrando</p>
+                <main>
+                    <p>
+                        <a href="mailto:franklinoliveira40@gmail.com">
+                            <i class="lar la-envelope"></i>
+                            franklinoliveira40@gmail.com
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://orcid.org/0000-0003-4285-0006" target="_blank">
+                            <img alt="ORCID logo" src="./img/bike/icon/ORCIDiD_icon16x16.png" width="16" height="16" />
+                            0000-0003-4285-0006
+                        </a>
+                    </p>
+                </main>
+            </section>
 
-            <blockquote>
-                <h4>Dilan Nery, PGCC-UEFS (mestrando)</h4>
-                <p>https://orcid.org/0000-0001-7381-1005</p>
-            </blockquote>
+            <section class="card">
+                <h4>Dilan Nery, PGCC-UEFS</h4>
+                <p>Mestrando</p>
+                <main>
+                    <p>
+                        <a href="mailto:dnerylopes@gmail.com">
+                            <i class="lar la-envelope"></i>
+                            dnerylopes@gmail.com
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://orcid.org/0000-0001-7381-1005" target="_blank">
+                            <img alt="ORCID logo" src="./img/bike/icon/ORCIDiD_icon16x16.png" width="16" height="16" />
+                            0000-0001-7381-1005
+                        </a>
+                    </p>
+                </main>
+            </section>
 
-            <blockquote>
-                <h4>Glauber Santana, UEFS (graduando)</h4>
-                <p>https://orcid.org/0000-0001-5605-4006</p>
-            </blockquote>
+            <section class="card">
+                <h4>Glauber Santana, UEFS</h4>
+                <p>Graduando</p>
+                <main>
+                    <p>
+                        <a href="mailto:glauber.silva14@gmail.com">
+                            <i class="lar la-envelope"></i>
+                            glauber.silva14@gmail.com
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://orcid.org/0000-0001-5605-4006" target="_blank">
+                            <img alt="ORCID logo" src="./img/bike/icon/ORCIDiD_icon16x16.png" width="16" height="16" />
+                            0000-0001-5605-4006
+                        </a>
+                    </p>
+                </main>
+            </section>
         </section>
     </section>
 
@@ -133,10 +202,14 @@
 
         <ol>
             <li>
-                <a href="https://doi.org/10.1109/ACCESS.2020.3046017" target="_blank">BikeWay: A Multi-Sensory Fuzzy-Based Quality Metric for Bike Paths and Tracks in Urban Areas. Oliveira, F., Costa, Daniel G., Duran-Faundez, C., Dias, A. IEEE Access, v. 8, 227313-227326, 2020.</a>
+                <a href="https://doi.org/10.1109/ACCESS.2020.3046017" target="_blank">BikeWay: A Multi-Sensory
+                    Fuzzy-Based Quality Metric for Bike Paths and Tracks in Urban Areas. Oliveira, F., Costa, Daniel G.,
+                    Duran-Faundez, C., Dias, A. IEEE Access, v. 8, 227313-227326, 2020.</a>
             </li>
             <li>
-                <a href="https://doi.org/10.1109/ISC251055.2020.9239071" target="_blank">A Multi-Tier Sensors-based Environmental Monitoring Approach to Assess the Quality of Bike Paths in Urban Areas. Oliveira, F., Costa, Daniel G., Dias, A. IEEE Smart Cities Conference (IEEE ISC2), Virtual Conference, 2020.</a>
+                <a href="https://doi.org/10.1109/ISC251055.2020.9239071" target="_blank">A Multi-Tier Sensors-based
+                    Environmental Monitoring Approach to Assess the Quality of Bike Paths in Urban Areas. Oliveira, F.,
+                    Costa, Daniel G., Dias, A. IEEE Smart Cities Conference (IEEE ISC2), Virtual Conference, 2020.</a>
             </li>
         </ol>
     </section>
